@@ -1,0 +1,25 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "3D Shock Cone for Asset VaR",
+  "data": {
+    "url": "data/shock_cone.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {"calculate": "datum.time/10", "as": "z"},
+    {"formula": "sqrt(datum.x*datum.x + datum.y*datum.y)", "as": "radius"}
+  ],
+  "mark": {"type": "point", "tooltip": true},
+  "encoding": {
+    "x": {"field": "x", "type": "quantitative", "axis": {"title": "Shock Factor X"}},
+    "y": {"field": "y", "type": "quantitative", "axis": {"title": "Shock Factor Y"}},
+    "color": {"field": "VaR", "type": "quantitative", "scale": {"scheme": "reds"}},
+    "size": {"field": "radius", "type": "quantitative"},
+    "opacity": {"value": 0.7},
+    "tooltip": [
+      {"field": "asset", "type": "nominal"},
+      {"field": "VaR", "type": "quantitative"},
+      {"field": "time", "type": "quantitative"}
+    ]
+  }
+}
