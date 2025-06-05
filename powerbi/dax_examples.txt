@@ -1,0 +1,13 @@
+// Residual VaR measure
+Residual_VaR = 
+  CALCULATE(
+    SUM(vw_residual_var[Residual_VaR]),
+    ALLEXCEPT(vw_residual_var, vw_residual_var[asset_id])
+  )
+
+// ESG Shock Percentage
+ESG_Shock_Percentage = 
+  DIVIDE(
+    COUNTROWS(FILTER(vw_esg_shock, [ESG_Shock_Flag] = 1)),
+    COUNTROWS(vw_esg_shock)
+  )
